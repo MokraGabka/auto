@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "327131379409",
+    "project_id": "rc-car-56909",
+    "storage_bucket": "rc-car-56909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327131379409:android:8afb4003c166167d58f7f0",
+        "android_client_info": {
+          "package_name": "com.example.autosterowanie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327131379409-8chusbpvpf49nca66k6ra0bfvdiq0fq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5dHYn2dFZpskIuyXgxlvXc07IZmM40R8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327131379409-8chusbpvpf49nca66k6ra0bfvdiq0fq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
