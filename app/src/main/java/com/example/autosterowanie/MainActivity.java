@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
     static public EditText IP;
     static public EditText port;
     DatabaseReference RoofRef;
-
+    static public int SERVER_PORT;
     Button Lewo,Prawo,Przód,Tył;
     UDP_Client Client;
-
+    UDP_Server Server;
 
 
 
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RoofRef= FirebaseDatabase.getInstance().getReference();
 
         port = (EditText)  findViewById(R.id.port);
         IP = (EditText)  findViewById(R.id.IP);
@@ -43,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         Przód=(Button) findViewById(R.id.przod);
         Tył=(Button) findViewById(R.id.tyl);
         Client = new UDP_Client();
+        SERVER_PORT=5000;
+        Server = new UDP_Server();
+        Server.runUdpServer();
 
         Lewo.setOnClickListener(new View.OnClickListener() {
             @Override
