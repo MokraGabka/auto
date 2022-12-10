@@ -1,20 +1,33 @@
 package com.example.autosterowanie;
 
+import java.io.ByteArrayOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Build;
+
+
+import androidx.core.util.TimeUtils;
+
 import java.net.InetAddress;
 
 
 public class UDP_Client {
     private AsyncTask<Void, Void, Void> async_client;
-    public byte[]  Message;
+    private String Message;
+    public String Message_String;
+    public void Send(){
 
+        Message="CG_Remote_Car_Key"+Message_String+"E";
+        Send_udp();
+
+
+
+    }
 
     @SuppressLint("NewApi")
-    public void NachrichtSenden() {
+    private void Send_udp() {
         async_client = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
@@ -23,7 +36,7 @@ public class UDP_Client {
                 try {
                     ds = new DatagramSocket();
                     DatagramPacket dp;
-                    dp = new DatagramPacket(Message, Message.length, InetAddress.getByName(MainActivity.IP.getText().toString()), new Integer(MainActivity.port.getText().toString()).intValue());
+                    dp = new DatagramPacket(Message.getBytes(), Message.length(), InetAddress.getByName(MainActivity.IP.getText().toString()), new Integer(MainActivity.port.getText().toString()).intValue());
                     ds.setBroadcast(true);
                     ds.send(dp);
                 } catch (Exception e) {

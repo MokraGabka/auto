@@ -3,7 +3,9 @@ package com.example.autosterowanie;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,13 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     static public EditText IP;
     static public EditText port;
-    DatabaseReference RoofRef;
+ //   DatabaseReference RoofRef;
     static public int SERVER_PORT;
     Button Lewo,Prawo,Przód,Tył;
     UDP_Client Client;
     UDP_Server Server;
 
-
+    Switch auto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         port = (EditText)  findViewById(R.id.port);
         IP = (EditText)  findViewById(R.id.IP);
 
-        Lewo=(Button) findViewById(R.id.lewo);
+
+        auto = (Switch) findViewById(R.id.auto);
         Prawo=(Button) findViewById(R.id.prawo);
         Przód=(Button) findViewById(R.id.przod);
         Tył=(Button) findViewById(R.id.tyl);
@@ -46,34 +49,27 @@ public class MainActivity extends AppCompatActivity {
         Server = new UDP_Server();
         Server.runUdpServer();
 
-        Lewo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-                output.write(0x01);
-
-                byte[] out = output.toByteArray();
-                Client.Message = out;
-                //Send message
-                Client.NachrichtSenden();
+        auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Client.Message_String = "A1";
 
 
+                } else {
+                    Client.Message_String = "A0";
+
+                }
+                Client.Send();
             }
-
         });
+
+
+
         Prawo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-                output.write(0x02);
-
-                byte[] out = output.toByteArray();
-                Client.Message = out;
-                //Send message
-                Client.NachrichtSenden();
             }
 
         });
@@ -81,14 +77,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-                output.write(0x03);
-
-                byte[] out = output.toByteArray();
-                Client.Message = out;
-                //Send message
-                Client.NachrichtSenden();
 
             }
 
@@ -97,14 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-                output.write(0x04);
-
-                byte[] out = output.toByteArray();
-                Client.Message = out;
-                //Send message
-                Client.NachrichtSenden();
 
 
             }
@@ -114,22 +96,11 @@ public class MainActivity extends AppCompatActivity {
         joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
             @Override
             public void onMove(int angle, int strength) {
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-                output.write(0x01);
-
-                output.write((byte)((angle >> 8) & 0xff));
-                output.write((byte)((angle >> 0) & 0xff));
-
-                output.write((byte)((strength >> 0) & 0xff));
-                byte[] out = output.toByteArray();
-                Client.Message = out;
-                //Send message
-                Client.NachrichtSenden();
-
+            Client.Message_String="K"+ Integer.toString(angle)+"S"+ Integer.toString(strength);
+            Client.Send();
            }
 
-       });
+       },200);
 
     }
 }

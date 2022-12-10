@@ -20,15 +20,15 @@
         android:textColor="@color/black"
         android:text="przod"
         />
-    <Button
+    <Switch
 
-        android:id="@+id/lewo"
+        android:id="@+id/auto"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="100dp"
         android:padding="200dp"
-        android:text="Lewo"
+        android:text="Auto"
         android:textColor="@color/black" />
     <Button
 
