@@ -7,7 +7,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 
+
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     static public EditText port;
  //   DatabaseReference RoofRef;
     static public int SERVER_PORT;
-    Button Lewo,Prawo,Przód,Tył;
     UDP_Client Client;
     UDP_Server Server;
 
@@ -41,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         auto = (Switch) findViewById(R.id.auto);
-        Prawo=(Button) findViewById(R.id.prawo);
-        Przód=(Button) findViewById(R.id.przod);
-        Tył=(Button) findViewById(R.id.tyl);
         Client = new UDP_Client();
         SERVER_PORT=5000;
         Server = new UDP_Server();
@@ -66,31 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Prawo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-
-        });
-        Przód.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-            }
-
-        });
-        Tył.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-
-            }
-        });
 
         JoystickView joystick = (JoystickView) findViewById(R.id.joystickView);
         joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
@@ -100,7 +74,17 @@ public class MainActivity extends AppCompatActivity {
             Client.Send();
            }
 
-       },200);
+       },50);
+
+        JoystickView joystick2 = (JoystickView) findViewById(R.id.joystickView2);
+        joystick2.setOnMoveListener(new JoystickView.OnMoveListener() {
+            @Override
+            public void onMove(int angle,  int strength) {
+                Client.Message_String="O"+ Integer.toString(angle);
+                Client.Send();
+            }
+
+        },50);
 
     }
 }
